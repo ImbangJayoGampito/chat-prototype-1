@@ -1,0 +1,385 @@
+:root {
+    --popup-enter: 0.25s;
+    --image-enlarge-size: min(50vw, 50vh);
+    --image-size-max: min(50%, 50%);
+    --popup-quit: 0.12s;
+    --incorrect-clr: red;
+    --text_bar: rgb(244, 244, 244);
+    --input-color: black;
+    --correct-clr: rgb(0, 255, 0);
+    --form_width: 30vw;
+    --channel-width: min(25vw, 200px);
+    --channel-show-length: 0.2s;
+
+}
+
+.contactHead {
+    margin: 0;
+}
+
+.popup {
+    position: fixed;
+    right: 0;
+    left: 0;
+    top: 0;
+    z-index: 999;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.827);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    animation: enlargeCome var(--popup-enter);
+
+}
+
+.popup.fading {
+    animation: enlargeGo var(--popup-quit);
+}
+
+.formInput {
+    display: flex;
+
+    flex-direction: column;
+    background-color: rgb(83, 80, 80);
+
+    align-items: center;
+
+    margin-left: 20%;
+    margin-right: 20%;
+
+    border-radius: 20px;
+    color: var(--text_bar);
+
+}
+
+html,
+body {
+    width: 100%;
+    height: 100%;
+    background-color: rgba(8, 151, 60, 0.387);
+    border-radius: 0;
+    margin-top: 20px;
+}
+
+.mainContainer {
+    display: flex;
+
+    flex-direction: column;
+    background-color: rgb(6, 91, 69);
+    text-align: center;
+    align-items: center;
+    margin-left: 10%;
+    margin-right: 10%;
+    padding: 10px;
+    border-radius: 20px;
+    color: var(--text_bar);
+
+}
+
+.incorrectText {
+    color: var(--incorrect-clr);
+    outline-color: black;
+    margin: 0px;
+    text-align: center;
+}
+
+.mainContainer img {
+    border-radius: 10px;
+}
+
+.formInput.textInput {
+    margin-top: 10px;
+    margin-bottom: 10px;
+
+}
+
+.gotoBtn {
+    padding: 15px;
+    font-size: xx-large;
+    color: rgb(0, 0, 0);
+    text-decoration: none;
+    font-weight: bold;
+    background-color: rgb(41, 255, 4);
+    border-radius: 10px;
+
+}
+
+.formInput.textInput input {
+    border-radius: 10px;
+    width: var(--form_width);
+    padding: 5px;
+    background-color: var(--text_bar);
+    color: var(--input-color);
+}
+
+.formInput.textInput textarea {
+    border-radius: 10px;
+    width: var(--form_width);
+    padding-left: 10px;
+    padding-right: 10px;
+    background-color: var(--text_bar);
+
+}
+
+.formInput.textInput.invalid input {
+    border-color: var(--incorrect-clr);
+}
+
+.formInput.textInput.invalid textarea {
+    border-color: var(--incorrect-clr);
+}
+
+.formInput.textInput.valid input {
+    border-color: var(--correct-clr);
+}
+
+.formInput.textInput.valid textarea {
+    border-color: var(--correct-clr);
+}
+
+@keyframes enlargeCome {
+    0% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}
+
+@keyframes enlargeGo {
+    0% {
+        opacity: 1;
+    }
+
+    100% {
+        opacity: 0;
+    }
+}
+
+.popup_button {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 50px;
+    font-size: large;
+    background-color: rgba(245, 245, 220, 0);
+    border: 5px solid white;
+    color: white;
+    font-weight: bold;
+    height: 50px;
+    border-radius: 50%;
+    padding: 10px
+        /* adjust this value to center the button horizontally */
+
+}
+
+.kontakBtn {
+    padding: 10px;
+    font-weight: bold;
+    margin-bottom: 30px;
+}
+
+.popup_image {
+    height: var(--image-enlarge-size);
+    width: var(--image-enlarge-size);
+    animation: imageEnlarge var(--popup-enter);
+}
+
+@keyframes imageEnlarge {
+    0% {
+        height: min(20vw, 20vh);
+        width: min(20vw, 20vh);
+    }
+
+    80% {
+        height: min(52vw, 52vh);
+        width: min(52vw, 52vh);
+    }
+
+    100% {
+        height: var(--image-enlarge-size);
+        width: var(--image-enlarge-size);
+    }
+}
+
+@keyframes imageShrink {
+    0% {
+        height: var(--image-enlarge-size);
+        width: var(--image-enlarge-size);
+    }
+
+    100% {
+        height: min(20vw, 20vh);
+        width: min(20vw, 20vh);
+    }
+}
+
+.popup_image.fading {
+    animation: imageShrink var(--popup-quit);
+}
+
+.popup_text {
+    color: aliceblue;
+    font-size: medium;
+    animation: textAppearEnlarge var(--popup-enter);
+}
+
+.popup_text.fading {
+    animation: textAppearSmall var(--popup-quit);
+}
+
+.buttonHeader {
+    margin-bottom: 20px;
+    background-color: rgb(13, 142, 37);
+    position: fixed;
+    /* Set the navbar to fixed position */
+    top: 0;
+    /* Position the navbar at the top of the page */
+    width: 100%;
+
+    /* Full width */
+}
+
+.buttonHeader button {
+    padding: 10px;
+    background-color: rgb(114, 136, 76);
+    color: black;
+    font-weight: bold;
+    border-width: 3px;
+    border-color: rgb(2, 62, 2);
+    margin-right: 3px;
+}
+
+.buttonHeader button:hover {
+    animation: butHover 0.2s;
+    background-color: yellowgreen;
+}
+
+@keyframes butHover {
+    0% {
+        background-color: rgb(114, 136, 76);
+    }
+
+    100% {
+        background-color: yellowgreen;
+    }
+}
+
+@keyframes textAppearEnlarge {
+    0% {
+        font-size: 0;
+    }
+
+    100% {
+        font-size: medium;
+    }
+}
+
+@keyframes textAppearSmall {
+    0% {
+        font-size: medium;
+    }
+
+    100% {
+        font-size: 0;
+    }
+}
+
+
+.formInput.radio {
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.popup_button:hover {
+    background-color: rgba(240, 255, 255, 0.219);
+}
+
+.channel-page {
+    position: fixed;
+    width: 0;
+    background-color: aliceblue;
+    padding-bottom: 100vw;
+    overflow-x: hidden;
+}
+
+.channel-page.on {
+    width: var(--channel-width);
+    animation: channelShow var(--channel-show-length);
+}
+
+.channel-page.off {
+    width: 0;
+    animation: channelHide var(--channel-show-length);
+}
+
+@keyframes channelShow {
+    0% {
+        width: 0;
+    }
+
+    100% {
+        width: var(--channel-width);
+    }
+}
+
+@keyframes channelHide {
+    0% {
+        width: var(--channel-width);
+    }
+
+    100% {
+        width: 0;
+    }
+}
+
+.chat-page {
+    margin-left: 0%;
+    background-color: rgb(6, 91, 69);
+
+}
+
+.chat-page.on {
+    margin-left: var(--channel-width);
+    animation: chatPageShow var(--channel-show-length);
+}
+
+@keyframes chatPageShow {
+    0% {
+        margin-left: 0;
+    }
+
+    100% {
+        margin-left: var(--channel-width);
+    }
+}
+
+@keyframes chatPageHide {
+    0% {
+        margin-left: var(--channel-width);
+    }
+
+    100% {
+        margin-left: 0;
+    }
+}
+
+.chat-page.off {
+    margin-left: 0;
+    animation: chatPageHide var(--channel-show-length)
+}
+
+.topchat {
+    top: 0;
+    position: fixed;
+    margin-top: 50px;
+}
+
+
+.bottomchat {
+    bottom: 0;
+    position: fixed;
+}

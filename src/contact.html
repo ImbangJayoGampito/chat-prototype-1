@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <script src="header.js">
+    </script>
+    <form class="formInput" id="contactForm" action="thanks.html">
+        <h1>Contact!</h1>
+        <h3 class="contactHead">Phone number: +6283105633867</h3>
+        <h3 class="contactHead">Email: imbangjayogampito@gmail.com</h3>
+        <div class="formInput textInput">
+            <label for="nameInput">Name:</label>
+            <input type="text" name="nameInput" id="nameInput">
+
+        </div>
+        <div class="formInput textInput">
+
+            <label for="email">Email:</label>
+            <input type="text" name="email" id="email">
+
+
+        </div>
+
+        <div class="formInput textInput">
+            <label for="pesan">Mesage:</label>
+            <textarea id="pesan" name="pesan"></textarea>
+        </div>
+        <div class="fromInput cat">
+            <label for="category">Category:</label>
+            <select id="category" name="category">
+                <option value="kritik">Miscelaneous</option>
+                <option value="ide">Suggestion</option>
+                <option value="tanggapan">Critique</option>
+            </select>
+        </div>
+
+        <div class="formInput radio">
+            <label for="menerima">Can reply?</label>
+            <div class="option">
+
+                <input type="radio" id="yes" name="opsi">
+                <label for="yes">Yes</label>
+
+            </div>
+            <div class="option">
+                <input type="radio" id="no" name="opsi" checked="checked">
+                <label for="no">No</label>
+            </div>
+        </div>
+        <input type="submit" value="Submit" class="kontakBtn">
+
+    </form>
+    <script src="./contact.js" type="module"></script>
+    </script>
+</body>
+
+</html>
