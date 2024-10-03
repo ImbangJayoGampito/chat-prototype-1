@@ -1,6 +1,4 @@
 {
-
     "liveServer.settings.root": "/",
-    "liveServer.settings.index": "index.html"
-
+    "liveServer.settings.index": "src/index.html"
 }
