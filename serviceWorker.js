@@ -10,7 +10,9 @@ const assets = ["/",
   '/icon-512.png',
   , "/chat.js",
   "/contact.html",
-  "/header.js"
+  "/header.js",
+  "/images/vert_app.png",
+  "/images/PWA_Logo.png"
   ,
   "/index.html",
   "/index.js",
