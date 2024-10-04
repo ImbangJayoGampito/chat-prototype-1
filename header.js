@@ -14,13 +14,12 @@ function createInstallable() {
     });
 
     let button = document.createElement("button");
+    button.id = "installButton";
+    button.innerHTML = "Install";
     if (window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone === true || deferredPrompt === null) {
         button.style.display = 'none';
         console.log("meow!");
     }
-    button.id = "installButton";
-    button.innerHTML = "Install";
-
     button.onclick = async () => {
         if (deferredPrompt !== null) {
             deferredPrompt.prompt();
