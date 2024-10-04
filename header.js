@@ -8,8 +8,10 @@ function createButton(buttonId, buttonText) {
 }
 function createInstallable() {
     let isInstallable = false;
+    let deferredPrompt;
     window.addEventListener('beforeinstallprompt', (event) => {
         isInstallable = true;
+        deferredPrompt = event;
     });
     if (!isInstallable) {
         return null;
@@ -28,7 +30,7 @@ function buildHeader() {
     nav.appendChild(createButton("about", "About"));
     nav.appendChild(createButton("contact", "Contact"));
     //nav.appendChild(createButton("chat", "Chat"));
-    nav.appendChild(createInstallable());
+    // nav.appendChild(createInstallable());
 }
 
 buildHeader();
