@@ -8,28 +8,18 @@ function createButton(buttonId, buttonText) {
 }
 function createInstallable() {
     let deferredPrompt;
-    let showButton = false;
     window.addEventListener('beforeinstallprompt', (event) => {
-        if (event.platforms.includes('windows') || event.platforms.includes('play')) {
-
-            // console.log('App is already installed');
-
-        } else {
-            event.preventDefault()
-            deferredPrompt = event;
-            showButton = true;
-            // console.log('App is not installed');
-
-        }
-
+        event.preventDefault()
+        deferredPrompt = event;
     });
-    if (showButton === true) {
-        return;
-    }
+    
     let button = document.createElement("button");
     button.id = "installButton";
     button.innerHTML = "Install";
     button.classList.add("install");
+    if (window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone === true) {
+        button.style.display = 'none';
+      }
     button.onclick = async () => {
         if (deferredPrompt !== null) {
             deferredPrompt.prompt();
