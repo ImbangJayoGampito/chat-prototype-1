@@ -14,9 +14,6 @@ function createInstallable() {
         isInstallable = true;
         deferredPrompt = event;
     });
-    if (!isInstallable) {
-        return null;
-    }
     let button = document.createElement("button");
     button.id = "installButton";
     button.innerHTML = "Install";
