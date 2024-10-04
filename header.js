@@ -7,13 +7,14 @@ function createButton(buttonId, buttonText) {
     return button;
 }
 function createInstallable() {
-    let isInstallable = false;
     let deferredPrompt;
     window.addEventListener('beforeinstallprompt', (event) => {
         event.preventDefault()
-        isInstallable = true;
         deferredPrompt = event;
     });
+    if (deferredPrompt === null) {
+        return;
+    }
     let button = document.createElement("button");
     button.id = "installButton";
     button.innerHTML = "Install";
