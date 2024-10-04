@@ -20,8 +20,8 @@ function createInstallable() {
     let button = document.createElement("button");
     button.id = "installButton";
     button.innerHTML = "Install";
-    button.classList.add("install")
-    button.addEventListener('click', async () => {
+    button.classList.add("install");
+    button.onclick = async () => {
         if (deferredPrompt !== null) {
             deferredPrompt.prompt();
             const { outcome } = await deferredPrompt.userChoice;
@@ -29,7 +29,7 @@ function createInstallable() {
                 deferredPrompt = null;
             }
         }
-    });
+    };
     return button;
 }
 function buildHeader() {
