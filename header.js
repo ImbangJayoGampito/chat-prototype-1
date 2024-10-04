@@ -6,7 +6,20 @@ function createButton(buttonId, buttonText) {
     button.onclick = () => { window.location.pathname + routeButton(buttonId + ".html") }
     return button;
 }
-
+function createInstallable() {
+    let isInstallable = false;
+    window.addEventListener('beforeinstallprompt', (event) => {
+        isInstallable = true;
+    });
+    if (!isInstallable) {
+        return null;
+    }
+    let button = document.createElement("button");
+    button.id = "installButton";
+    button.innerHTML = "Install";
+    button.classList.add("install")
+    return button;
+}
 function buildHeader() {
     let nav = document.createElement("nav");
     nav.classList.add("buttonHeader");
@@ -15,6 +28,7 @@ function buildHeader() {
     nav.appendChild(createButton("about", "About"));
     nav.appendChild(createButton("contact", "Contact"));
     //nav.appendChild(createButton("chat", "Chat"));
+    nav.appendChild(createInstallable());
 }
 
 buildHeader();
