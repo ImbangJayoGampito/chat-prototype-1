@@ -8,10 +8,13 @@ function createButton(buttonId, buttonText) {
 }
 function createInstallable() {
     let deferredPrompt = null;
-    window.addEventListener('beforeinstallprompt', (event) => {
-        event.preventDefault()
-        deferredPrompt = event;
-    });
+    if ('beforeinstallprompt' in window) {
+        window.addEventListener('beforeinstallprompt', (event) => {
+            event.preventDefault()
+            deferredPrompt = event;
+        });
+
+    }
 
     let button = document.createElement("button");
     button.id = "installButton";
