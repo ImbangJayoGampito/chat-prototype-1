@@ -8,35 +8,42 @@ function createButton(buttonId, buttonText) {
 }
 function createInstallable() {
     let deferredPrompt = null;
+    let button = document.createElement("button");
+    button.id = "installButton";
+    button.innerHTML = "Install";
 
-    let button = null;
-    window.addEventListener('beforeinstallprompt', (event) => {
+    // Check if browser is already in standalone mode or default prompt is available
+    if (window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone === true) {
+        deferredPrompt = { prompt: () => { } }; // Set a default value for deferredPrompt
+    } else {
+        window.addEventListener('beforeinstallprompt', (event) => {
+            event.preventDefault()
+            deferredPrompt = event;
+            console.log("meow")
+            console.log(deferredPrompt)
+        });
+    }
 
-        event.preventDefault()
+    button.onclick = async () => {
+        if ('beforeinstallprompt' in window) {
 
-        deferredPrompt = event;
-        button = document.createElement("button");
-        console.log("meow")
-        button.id = "installButton";
-        button.innerHTML = "Install";
-        console.log(deferredPrompt)
-        if (window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone === true) {
-            button.style.display = 'none';
+            console.log("mmmmmm")
+
         }
-        button.onclick = async () => {
-            if (deferredPrompt !== null) {
-                deferredPrompt.prompt();
-                const { outcome } = await deferredPrompt.userChoice;
-                if (outcome === 'accepted') {
-                    deferredPrompt = null;
-                }
+        console.log(deferredPrompt)
+        if (deferredPrompt !== null) {
+            deferredPrompt.prompt();
+            const { outcome } = await deferredPrompt.userChoice;
+            if (outcome === 'accepted') {
+                deferredPrompt = null;
             }
-        };
+        }
+    };
 
-    });
-
-
-
+    if (window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone === true) {
+        button.style.display = 'none';
+    } else {
+    }
 
     return button;
 }
