@@ -17,49 +17,51 @@ const assets = ["/",
   "/app.js",
   "/manifest.json",
   "/styles.css",
+  , "/offline.html"
   "/thanks.html"]
 
-self.addEventListener("install", (e) => {
-  console.log("[Service Worker] Install");
-  e.waitUntil(
-    (async () => {
-      const cache = await caches.open(cacheName);
-      console.log("[Service Worker] Caching all: app shell and content");
-      await cache.addAll(contentToCache);
-    })(),
-  );
-});
-const cacheName = "MyPWAOk";
+const putInCache = async (request, response) => {
+  const cache = await caches.open("v1");
+  await cache.put(request, response);
+};
 
+const cacheFirst = async ({ request, fallbackUrl }) => {
+  // First try to get the resource from the cache.
+  const responseFromCache = await caches.match(request);
+  if (responseFromCache) {
+    return responseFromCache;
+  }
 
-self.addEventListener("fetch", (e) => {
-  e.respondWith(
-    (async () => {
-      const r = await caches.match(e.request);
-      console.log(`[Service Worker] Fetching resource: ${e.request.url}`);
-      if (r) {
-        return r;
-      }
-      const response = await fetch(e.request);
-      const cache = await caches.open(cacheName);
-      console.log(`[Service Worker] Caching new resource: ${e.request.url}`);
-      cache.put(e.request, response.clone());
-      return response;
-    })(),
-  );
-});
+  try {
+    const responseFromNetwork = await fetch(request);
+    putInCache(request, responseFromNetwork.clone());
+    return responseFromNetwork;
+  } catch (error) {
+    const fallbackResponse = await caches.match(fallbackUrl);
+    if (fallbackResponse) {
+      return fallbackResponse;
+    }
+    return new Response("Network error happened", {
+      status: 408,
+      headers: { "Content-Type": "text/plain" },
+    });
+  }
+};
 
-self.addEventListener("activate", (e) => {
-  e.waitUntil(
-    caches.keys().then((keyList) => {
-      return Promise.all(
-        keyList.map((key) => {
-          if (key === cacheName) {
-            return;
-          }
-          return caches.delete(key);
-        }),
-      );
+self.addEventListener("fetch", (event) => {
+  event.respondWith(
+    cacheFirst({
+      request: event.request,
+      fallbackUrl: "/fallback.html",
     }),
   );
+});
+window.addEventListener('offline', () => {
+  window.location.href = "/offline.html";
+  console.log("you're offline!!!!")
+});
+
+window.addEventListener('online', () => {
+  window.location.href = "/index.html";
+  console.log("you are online!")
 });
