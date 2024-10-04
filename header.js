@@ -7,19 +7,20 @@ function createButton(buttonId, buttonText) {
     return button;
 }
 function createInstallable() {
-    let deferredPrompt;
+    let deferredPrompt = null;
     window.addEventListener('beforeinstallprompt', (event) => {
         event.preventDefault()
         deferredPrompt = event;
     });
-    
+
     let button = document.createElement("button");
+    if (window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone === true || deferredPrompt === null) {
+        button.style.display = 'none';
+        console.log("meow!");
+    }
     button.id = "installButton";
     button.innerHTML = "Install";
-    button.classList.add("install");
-    if (window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone === true) {
-        button.style.display = 'none';
-      }
+
     button.onclick = async () => {
         if (deferredPrompt !== null) {
             deferredPrompt.prompt();
