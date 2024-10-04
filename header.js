@@ -8,11 +8,22 @@ function createButton(buttonId, buttonText) {
 }
 function createInstallable() {
     let deferredPrompt;
+    let showButton = false;
     window.addEventListener('beforeinstallprompt', (event) => {
-        event.preventDefault()
-        deferredPrompt = event;
+        if (event.platforms.includes('windows') || event.platforms.includes('play')) {
+
+            // console.log('App is already installed');
+
+        } else {
+            event.preventDefault()
+            deferredPrompt = event;
+            showButton = true;
+            // console.log('App is not installed');
+
+        }
+
     });
-    if (deferredPrompt === null) {
+    if (showButton === true) {
         return;
     }
     let button = document.createElement("button");

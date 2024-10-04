@@ -34,3 +34,4 @@ self.addEventListener("fetch", fetchEvent => {
     )
   })
 
+const cacheName = "MyPWAOk";
