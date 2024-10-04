@@ -10,6 +10,7 @@ function createInstallable() {
     let isInstallable = false;
     let deferredPrompt;
     window.addEventListener('beforeinstallprompt', (event) => {
+        event.preventDefault()
         isInstallable = true;
         deferredPrompt = event;
     });
