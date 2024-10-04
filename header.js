@@ -20,6 +20,15 @@ function createInstallable() {
     button.id = "installButton";
     button.innerHTML = "Install";
     button.classList.add("install")
+    button.addEventListener('click', async () => {
+        if (deferredPrompt !== null) {
+            deferredPrompt.prompt();
+            const { outcome } = await deferredPrompt.userChoice;
+            if (outcome === 'accepted') {
+                deferredPrompt = null;
+            }
+        }
+    });
     return button;
 }
 function buildHeader() {
@@ -30,7 +39,7 @@ function buildHeader() {
     nav.appendChild(createButton("about", "About"));
     nav.appendChild(createButton("contact", "Contact"));
     //nav.appendChild(createButton("chat", "Chat"));
-    // nav.appendChild(createInstallable());
+    nav.appendChild(createInstallable());
 }
 
 buildHeader();
