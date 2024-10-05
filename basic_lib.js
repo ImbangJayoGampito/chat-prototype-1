@@ -83,10 +83,45 @@ function getElementFromParent(parent, name, method) {
     }
     return result;
 }
+function modifySize(elementArray) {
+    for (let i = 0; i < elementArray.length; i++) {
+
+        let parent = elementArray[i].parentNode;
+        let id = parent.id
+        if (id === 'popup_page') {
+            continue;
+        }
+        let p_style = window.getComputedStyle(parent)
+        let c_style = window.getComputedStyle(elementArray[i])
+
+        let c_width = parseFloat(c_style.width);
+
+        let c_height = parseFloat(c_style.height);
+
+
+        let w = (parseFloat(p_style.width) / 2);
+        let h = parseFloat(p_style.height) / 2;
+        let ratio = Math.min(c_width / c_height);
+
+        c_width = w
+        c_height = c_width / ratio
+
+
+        // console.log(window.location.href)
+        elementArray[i].style.width = c_width + 'px';
+        elementArray[i].style.height = c_height + 'px';
+        // console.log(Math.min(w / 2, h / 2))
+    }
+}
 export function addClickFunction(name, funcToExecute, parent, getMethod) {
     let toAffect = getElementFromParent(parent, name, getMethod);
+    modifySize(toAffect)
     console.log(toAffect.length)
     for (let i = 0; i < toAffect.length; i++) {
         toAffect[i].onclick = () => { funcToExecute(toAffect[i]) };
     }
+
+    window.addEventListener('resize', function () {
+        modifySize(toAffect)
+    });
 }
